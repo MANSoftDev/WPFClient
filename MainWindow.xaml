@@ -1,0 +1,88 @@
+﻿<Window x:Class="WPFClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="400" Width="600" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Margin="0,10,0,0" Grid.RowSpan="2" Orientation="Vertical">
+            <ListBox x:Name="Contacts" ItemsSource="{Binding}" Width="225" Height="300" SelectionChanged="Contacts_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=[FirstName]}" Margin="0,0,5,0"/>
+                            <TextBlock Text="{Binding Path=[Title]}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Content="Add Contact" Width="75" Height="25" Click="OnAddContact" VerticalAlignment="Top" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal">
+            <Grid x:Name="contactDetails" Margin="10,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                    <TextBlock x:Name="DetailsFirstName" Margin="0,0,5,0" Text="{Binding ElementName=Contacts, Path=SelectedValue[FirstName]}"></TextBlock>
+                    <TextBlock x:Name="DetailsTitle" Text="{Binding ElementName=Contacts, Path=SelectedValue[Title]}"></TextBlock>                      
+                </StackPanel>
+                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+                    <TextBlock x:Name="DetailsWorkAddress" Text="{Binding ElementName=Contacts, Path=SelectedValue[WorkAddress]}"></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
+                    <TextBlock x:Name="DetailsWorkCity" Margin="0,0,5,0" Text="{Binding ElementName=Contacts, Path=SelectedValue[WorkCity]}"></TextBlock>
+                    <TextBlock x:Name="DetailsWorkState" Margin="0,0,5,0" Text="{Binding ElementName=Contacts, Path=SelectedValue[WorkState]}"></TextBlock>
+                    <TextBlock x:Name="DetailsWorkZip" Text="{Binding ElementName=Contacts, Path=SelectedValue[WorkZip]}"></TextBlock>                    
+                </StackPanel>
+                <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
+                    <Button Content="Edit" Width="50" Click="OnEdit" />
+                    <Button Content="Delete" Width="50" Click="OnDelete" />
+                </StackPanel>
+            </Grid>
+            <Grid x:Name="contactEdit" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                    <TextBlock Margin="0,0,5,0" FontWeight="Bold">First Name:</TextBlock>
+                    <TextBox x:Name="EditFirstName" Width="100" Text="{Binding ElementName=Contacts, Path=SelectedValue[FirstName]}"></TextBox>
+                    <TextBlock Margin="5,0,5,0" FontWeight="Bold">Last Name:</TextBlock>
+                    <TextBox x:Name="EditTitle" Width="100" Text="{Binding ElementName=Contacts, Path=SelectedValue[Title]}"></TextBox>
+                </StackPanel>
+                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+                    <TextBlock Margin="0,0,5,0" FontWeight="Bold">Address:</TextBlock>
+                    <TextBox x:Name="EditWorkAddress" Width="100" Text="{Binding ElementName=Contacts, Path=SelectedValue[WorkAddress]}"></TextBox>
+                </StackPanel>
+                <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
+                    <TextBlock Margin="0,0,5,0" FontWeight="Bold">City:</TextBlock>
+                    <TextBox x:Name="EditWorkCity" Width="100" Text="{Binding ElementName=Contacts, Path=SelectedValue[WorkCity]}"></TextBox>
+                    <TextBlock Margin="5,0,5,0" FontWeight="Bold">State:</TextBlock>
+                    <TextBox x:Name="EditWorkState" Width="25" Text="{Binding ElementName=Contacts, Path=SelectedValue[WorkState]}"></TextBox>
+                    <TextBlock Margin="5,0,5,0" FontWeight="Bold">Postal Code:</TextBlock>
+                    <TextBox x:Name="EditWorkZip" Width="50" Text="{Binding ElementName=Contacts, Path=SelectedValue[WorkZip]}"></TextBox>
+                </StackPanel>
+                <Button Grid.Column="0" Grid.Row="3" Content="Save" Width="50" Click="OnSave" />
+            </Grid>
+        </StackPanel>
+                       
+    </Grid>
+</Window>
